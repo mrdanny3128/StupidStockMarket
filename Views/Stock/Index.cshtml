@@ -1,0 +1,42 @@
+﻿@model IEnumerable<StupidStockMarket.Models.Stock>
+
+<div class="container text-white p-5" style="background-color: #121212; border-radius: 20px; box-shadow: 0px 10px 30px rgba(0,0,0,0.5);">
+
+    <div class="text-center mb-5">
+        <h1 style="color: #00ff88; font-weight: bold; font-size: 3rem;">🚀 STUPID STOCK EXCHANGE</h1>
+        <div class="mt-3">
+            <span class="badge bg-warning text-dark p-3" style="font-size: 1.5rem; border-radius: 50px;">
+                💰 WALLET: $@ViewBag.PlayerBalance
+            </span>
+        </div>
+        <p class="text-muted mt-2 italic">Prices change every time you refresh!</p>
+    </div>
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card bg-dark border-secondary h-100 shadow-sm" style="transition: transform .2s;">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <h3 class="card-title text-info">@item.ItemName</h3>
+                        <h2 class="display-6 text-white my-3">$@item.CurrentPrice</h2>
+
+                        <form asp-action="Buy" method="post">
+                            <input type="hidden" name="stockId" value="@item.Id" />
+                            <button type="submit" class="btn btn-success w-100 fw-bold py-2">
+                                BUY @item.ItemName
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .card:hover {
+        transform: scale(1.05);
+        border-color: #00ff88 !important;
+    }
+</style>
